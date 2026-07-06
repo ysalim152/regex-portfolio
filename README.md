@@ -22,6 +22,7 @@ Le portfolio inclut les démonstrations suivantes :
 *   **DATE.php** : Valide le format d'une date (`JJ/MM/AAAA`).
 *   **PASSWORD.php** : Valide la robustesse d'un mot de passe (critères de complexité).
 *   **HASHTAG.php** : Extrait tous les hashtags d'une chaîne de caractères.
+*   **LOG_PARSER.php** : Analyse (parse) un fichier de log pour en extraire des informations structurées (IP, statut, etc.).
 
 ### Exemples en JavaScript (interactifs)
 

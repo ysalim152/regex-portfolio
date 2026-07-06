@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>REGEX - Validation d'Email en Temps Réel (JS)</title>
+<link rel="stylesheet" href="assets/css/style.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet" />
+<style>
+    /* Styles spécifiques pour la validation en temps réel */
+    #email {
+        transition: border-color 0.3s ease-in-out;
+    }
+    .validation-message {
+        margin-top: 10px;
+        height: 20px; /* Réserve de l'espace pour éviter les sauts de page */
+        font-weight: bold;
+    }
+</style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Validation d'Email en Temps Réel (JavaScript)</h1>
+            <p><a href="index.html">Retour à l'accueil</a></p>
+        </header>
+
+        <main>
+            <form onsubmit="return false;"> <!-- Empêche la soumission du formulaire pour la démo -->
+                <label for="email">Entrez une adresse email :</label>
+                <input type="text" name="email" id="email" placeholder="exemple@domaine.com" autocomplete="off" />
+                <div id="validation-message" class="validation-message"></div>
+            </form>
+
+            <h3>Le code JavaScript utilisé</h3>
+            <p>Le script ci-dessous écoute l'événement <code>input</code> sur le champ de saisie. À chaque modification, il teste la valeur actuelle contre une expression régulière et met à jour le message de statut et la couleur de la bordure en temps réel.</p>
+            <pre><code class="language-javascript">
+const emailInput = document.getElementById('email');
+const messageDiv = document.getElementById('validation-message');
+
+// Regex pour une validation d'email standard
+const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+emailInput.addEventListener('input', () => {
+    const email = emailInput.value;
+
+    if (email === "") {
+        messageDiv.textContent = "";
+        emailInput.style.borderColor = '#ccc'; // Couleur par défaut
+        return;
+    }
+
+    if (emailRegex.test(email)) {
+        messageDiv.textContent = 'Format d\'email valide !';
+        messageDiv.className = 'validation-message valid';
+        emailInput.style.borderColor = 'var(--valid-color)';
+    } else {
+        messageDiv.textContent = 'Format d\'email invalide...';
+        messageDiv.className = 'validation-message invalid';
+        emailInput.style.borderColor = 'var(--invalid-color)';
+    }
+});
+            </code></pre>
+        </main>
+    </div>
+
+    <!-- Prism.js pour la coloration syntaxique du bloc de code JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+    <script>
+        // Le code de validation en temps réel
+        const emailInput = document.getElementById('email');
+        const messageDiv = document.getElementById('validation-message');
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+        emailInput.addEventListener('input', () => {
+            const email = emailInput.value;
+            if (email === "") { messageDiv.textContent = ""; emailInput.style.borderColor = '#ccc'; return; }
+            const isValid = emailRegex.test(email);
+            messageDiv.textContent = isValid ? 'Format d\'email valide !' : 'Format d\'email invalide...';
+            messageDiv.className = `validation-message ${isValid ? 'valid' : 'invalid'}`;
+            emailInput.style.borderColor = `var(--${isValid ? 'valid' : 'invalid'}-color)`;
+        });
+    </script>
+</body>
+</html>

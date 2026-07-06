@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>REGEX - Masque de Saisie Téléphone (JS)</title>
+<link rel="stylesheet" href="assets/css/style.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Masque de Saisie pour Numéro de Téléphone (JavaScript)</h1>
+            <p><a href="index.html">Retour à l'accueil</a></p>
+        </header>
+
+        <main>
+            <form onsubmit="return false;">
+                <label for="phone">Entrez un numéro de téléphone français :</label>
+                <input type="tel" name="phone" id="phone" placeholder="01 23 45 67 89" autocomplete="off" maxlength="14" />
+                <div class="result" style="margin-top: 10px; min-height: 20px;">
+                    Valeur brute (chiffres uniquement) : <code id="raw-value"></code>
+                </div>
+            </form>
+
+            <h3>Le code JavaScript utilisé</h3>
+            <p>Ce script écoute l'événement <code>input</code>. À chaque saisie, il nettoie la valeur pour ne garder que les chiffres (avec <code>.replace(/\D/g, '')</code>), puis la reformate pour correspondre au format standard des numéros français (groupes de 2 chiffres séparés par des espaces).</p>
+            <pre><code class="language-javascript">
+const phoneInput = document.getElementById('phone');
+const rawValueDisplay = document.getElementById('raw-value');
+
+phoneInput.addEventListener('input', (e) => {
+    // 1. On ne garde que les chiffres (\D signifie "tout ce qui n'est pas un chiffre")
+    let digits = phoneInput.value.replace(/\D/g, '');
+
+    // 2. On limite à 10 chiffres
+    digits = digits.substring(0, 10);
+    rawValueDisplay.textContent = digits;
+
+    // 3. On applique le formatage (ex: 0123456789 -> 01 23 45 67 89)
+    // On utilise .match() pour découper la chaîne en groupes de 1 à 2 chiffres.
+    const formatted = digits.match(/(\d{1,2})/g);
+
+    // 4. On met à jour la valeur de l'input avec les groupes joints par un espace
+    if (formatted) {
+        phoneInput.value = formatted.join(' ');
+    } else {
+        phoneInput.value = '';
+    }
+});
+            </code></pre>
+        </main>
+    </div>
+
+    <!-- Prism.js pour la coloration syntaxique -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+    <script>
+        // Le code du masque de saisie
+        const phoneInput = document.getElementById('phone');
+        const rawValueDisplay = document.getElementById('raw-value');
+
+        phoneInput.addEventListener('input', (e) => {
+            let digits = phoneInput.value.replace(/\D/g, '').substring(0, 10);
+            rawValueDisplay.textContent = digits;
+            const formatted = digits.match(/(\d{1,2})/g);
+            phoneInput.value = formatted ? formatted.join(' ') : '';
+        });
+    </script>
+</body>
+</html>

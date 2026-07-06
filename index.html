@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Portfolio REGEX | Salim YOUNSI</title>
 <link rel="stylesheet" href="assets/css/style.css">
+
+<!-- Suggestion: Ajoutez une bibliothèque de coloration syntaxique comme Prism.js pour améliorer la lisibilité du code. -->
+<!-- La coloration syntaxique est maintenant activée avec Prism.js. -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -29,21 +33,32 @@
                 <li><a href="HASHTAG.php">Extraction de hashtags</a></li>
             </ul>
 
+            <h2>Exemples en JavaScript</h2>
+            <p>Le JavaScript est essentiel pour la validation côté client. L'ajout d'exemples interactifs ici rendrait votre portfolio encore plus attrayant.</p>
+            <ul>
+                <li><a href="EMAIL_JS.html">Validation d'email en temps réel (JS)</a></li>
+                <li><a href="TEL_JS.html">Masque de saisie pour numéro de téléphone (JS)</a></li>
+            </ul>
+
             <h2>Exemples en SQL (MySQL/MariaDB)</h2>
             <div class="sql-example">
                 <h3>Rechercher des noms commençant par une voyelle</h3>
                 <p>Cette requête sélectionne les utilisateurs dont le nom commence par une voyelle (insensible à la casse avec `REGEXP` par défaut).</p>
-                <pre><code>SELECT * FROM utilisateurs WHERE nom REGEXP '^[aeiou]';</code></pre>
+                <!-- Pour activer la coloration, ajoutez la classe "language-sql" au bloc de code après avoir décommenté les liens Prism.js -->
+                <pre><code class="language-sql">SELECT * FROM utilisateurs WHERE nom REGEXP '^[aeiou]';</code></pre>
             </div>
             <div class="sql-example">
                 <h3>Valider un format de code produit</h3>
                 <p>Cette requête trouve les produits avec un code au format 'ABC-1234'.</p>
-                <pre><code>SELECT * FROM produits WHERE code_produit REGEXP '^[A-Z]{3}-[0-9]{4}$';</code></pre>
+                <pre><code class="language-sql">SELECT * FROM produits WHERE code_produit REGEXP '^[A-Z]{3}-[0-9]{4}$';</code></pre>
             </div>
         </main>
         <footer>
-            <p>Merci de votre confiance, <a href="https://github.com/ysalim152" target="_blank">Salim YOUNSI</a></p>
+            <p>Merci de votre confiance, <a href="https://github.com/ysalim152" target="_blank" rel="noopener noreferrer">Salim YOUNSI</a></p>
         </footer>
     </div>
+    <!-- Scripts pour Prism.js. L'autoloader charge automatiquement les langages nécessaires (comme SQL ici). -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
 </body>
 </html>

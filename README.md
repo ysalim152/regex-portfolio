@@ -23,6 +23,13 @@ Le portfolio inclut les démonstrations suivantes :
 *   **PASSWORD.php** : Valide la robustesse d'un mot de passe (critères de complexité).
 *   **HASHTAG.php** : Extrait tous les hashtags d'une chaîne de caractères.
 
+### Exemples en JavaScript (interactifs)
+
+*   **EMAIL_JS.html**: Valide une adresse e-mail en temps réel.
+*   **TEL_JS.html**: Applique un masque de saisie pour un numéro de téléphone français.
+*   **PASSWORD_JS.html**: Évalue la force d'un mot de passe en temps réel.
+*   **USERNAME_JS.html**: Valide un pseudonyme en temps réel selon des règles spécifiques.
+
 ### Exemples en SQL (théoriques)
 
 Ces exemples sont présentés sur la page d'accueil pour illustrer la syntaxe `REGEXP` en SQL (compatible MySQL/MariaDB).

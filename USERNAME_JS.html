@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>REGEX - Validation de Pseudo (JS)</title>
+<link rel="stylesheet" href="assets/css/style.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet" />
+<style>
+    #username {
+        transition: border-color 0.3s ease-in-out;
+    }
+    .validation-message {
+        margin-top: 10px;
+        height: 20px; /* Réserve de l'espace pour éviter les sauts de page */
+        font-weight: bold;
+    }
+</style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Validation de Pseudonyme en Temps Réel (JavaScript)</h1>
+            <p><a href="index.html">Retour à l'accueil</a></p>
+        </header>
+
+        <main>
+            <form onsubmit="return false;">
+                <label for="username">Entrez un pseudonyme :</label>
+                <input type="text" name="username" id="username" placeholder="mon_pseudo_123" autocomplete="off" />
+                <div id="validation-message" class="validation-message"></div>
+            </form>
+
+            <h3>Le code JavaScript utilisé</h3>
+            <p>Ce script valide un pseudonyme en temps réel en se basant sur les règles suivantes :</p>
+            <ul>
+                <li>Doit contenir entre 3 et 15 caractères.</li>
+                <li>Doit commencer par une lettre minuscule.</li>
+                <li>Peut contenir des lettres minuscules, des chiffres, des tirets (<code>-</code>) et des underscores (<code>_</code>).</li>
+                <li>Ne doit pas se terminer par un tiret ou un underscore.</li>
+            </ul>
+            <p>L'expression régulière utilisée pour valider ces règles est : <code>/^[a-z][a-z0-9_-]{1,13}[a-z0-9]$/</code></p>
+            <pre><code class="language-javascript">
+const usernameInput = document.getElementById('username');
+const messageDiv = document.getElementById('validation-message');
+
+// Regex pour la validation du pseudo
+const usernameRegex = /^[a-z][a-z0-9_-]{1,13}[a-z0-9]$/;
+
+usernameInput.addEventListener('input', () => {
+    const username = usernameInput.value;
+
+    if (username === "") {
+        messageDiv.textContent = "";
+        usernameInput.style.borderColor = '#ccc'; // Couleur par défaut
+        return;
+    }
+
+    if (usernameRegex.test(username)) {
+        messageDiv.textContent = 'Pseudonyme valide !';
+        messageDiv.className = 'validation-message valid';
+        usernameInput.style.borderColor = 'var(--valid-color)';
+    } else {
+        messageDiv.textContent = 'Pseudonyme invalide...';
+        messageDiv.className = 'validation-message invalid';
+        usernameInput.style.borderColor = 'var(--invalid-color)';
+    }
+});
+            </code></pre>
+        </main>
+    </div>
+
+    <!-- Prism.js pour la coloration syntaxique -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+    <script>
+        // Le code de validation en temps réel
+        const usernameInput = document.getElementById('username');
+        const messageDiv = document.getElementById('validation-message');
+        const usernameRegex = /^[a-z][a-z0-9_-]{1,13}[a-z0-9]$/;
+        usernameInput.addEventListener('input', () => { const username = usernameInput.value; if (username === "") { messageDiv.textContent = ""; usernameInput.style.borderColor = '#ccc'; return; } const isValid = usernameRegex.test(username); messageDiv.textContent = isValid ? 'Pseudonyme valide !' : 'Pseudonyme invalide...'; messageDiv.className = `validation-message ${isValid ? 'valid' : 'invalid'}`; usernameInput.style.borderColor = `var(--${isValid ? 'valid' : 'invalid'}-color)`; });
+    </script>
+</body>
+</html>

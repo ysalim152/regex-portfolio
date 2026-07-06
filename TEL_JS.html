@@ -25,29 +25,48 @@
             </form>
 
             <h3>Le code JavaScript utilisé</h3>
-            <p>Ce script écoute l'événement <code>input</code>. À chaque saisie, il nettoie la valeur pour ne garder que les chiffres (avec <code>.replace(/\D/g, '')</code>), puis la reformate pour correspondre au format standard des numéros français (groupes de 2 chiffres séparés par des espaces).</p>
+            <p>Ce script amélioré applique un masque de saisie tout en conservant la position du curseur pour une expérience utilisateur fluide. À chaque modification, il nettoie l'entrée pour ne garder que les chiffres, la reformate (<code>XX XX XX XX XX</code>), puis recalcule et replace intelligemment le curseur, permettant à l'utilisateur d'éditer le numéro à n'importe quel endroit sans que le curseur ne saute à la fin.</p>
             <pre><code class="language-javascript">
 const phoneInput = document.getElementById('phone');
 const rawValueDisplay = document.getElementById('raw-value');
 
 phoneInput.addEventListener('input', (e) => {
-    // 1. On ne garde que les chiffres (\D signifie "tout ce qui n'est pas un chiffre")
-    let digits = phoneInput.value.replace(/\D/g, '');
+    const input = e.target;
+    const originalValue = input.value;
+    const cursorPosition = input.selectionStart;
 
-    // 2. On limite à 10 chiffres
+    // 1. Compter le nombre de chiffres avant le curseur pour le repositionner plus tard.
+    const digitsBeforeCursor = originalValue.slice(0, cursorPosition).replace(/\D/g, '').length;
+
+    // 2. Nettoyer la valeur pour ne garder que les chiffres et la limiter.
+    let digits = originalValue.replace(/\D/g, '');
     digits = digits.substring(0, 10);
     rawValueDisplay.textContent = digits;
 
-    // 3. On applique le formatage (ex: 0123456789 -> 01 23 45 67 89)
-    // On utilise .match() pour découper la chaîne en groupes de 1 à 2 chiffres.
+    // 3. Formater la chaîne de chiffres avec des espaces.
     const formatted = digits.match(/(\d{1,2})/g);
+    const formattedValue = formatted ? formatted.join(' ') : '';
+    
+    // 4. Mettre à jour la valeur de l'input.
+    input.value = formattedValue;
 
-    // 4. On met à jour la valeur de l'input avec les groupes joints par un espace
-    if (formatted) {
-        phoneInput.value = formatted.join(' ');
-    } else {
-        phoneInput.value = '';
+    // 5. Calculer la nouvelle position du curseur.
+    // On parcourt la nouvelle chaîne formatée et on s'arrête après avoir passé
+    // le même nombre de chiffres qu'il y avait avant le curseur à l'origine.
+    let newCursorPosition = 0;
+    let digitsCounted = 0;
+    for (const char of formattedValue) {
+        if (digitsCounted === digitsBeforeCursor) {
+            break;
+        }
+        if (/\d/.test(char)) {
+            digitsCounted++;
+        }
+        newCursorPosition++;
     }
+
+    // 6. Repositionner le curseur.
+    input.setSelectionRange(newCursorPosition, newCursorPosition);
 });
             </code></pre>
         </main>
@@ -63,10 +82,7 @@ phoneInput.addEventListener('input', (e) => {
         const rawValueDisplay = document.getElementById('raw-value');
 
         phoneInput.addEventListener('input', (e) => {
-            let digits = phoneInput.value.replace(/\D/g, '').substring(0, 10);
-            rawValueDisplay.textContent = digits;
-            const formatted = digits.match(/(\d{1,2})/g);
-            phoneInput.value = formatted ? formatted.join(' ') : '';
+            const input = e.target; const originalValue = input.value; const cursorPosition = input.selectionStart; const digitsBeforeCursor = originalValue.slice(0, cursorPosition).replace(/\D/g, '').length; let digits = originalValue.replace(/\D/g, ''); digits = digits.substring(0, 10); rawValueDisplay.textContent = digits; const formatted = digits.match(/(\d{1,2})/g); const formattedValue = formatted ? formatted.join(' ') : ''; input.value = formattedValue; let newCursorPosition = 0; let digitsCounted = 0; for (const char of formattedValue) { if (digitsCounted === digitsBeforeCursor) { break; } if (/\d/.test(char)) { digitsCounted++; } newCursorPosition++; } input.setSelectionRange(newCursorPosition, newCursorPosition);
         });
     </script>
 </body>

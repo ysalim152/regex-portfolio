@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>REGEX - Analyseur d'URL (JS)</title>
+<link rel="stylesheet" href="assets/css/style.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet" />
+<style>
+    #url-parts {
+        background-color: #272822;
+        color: #f8f8f2;
+        padding: 15px;
+        border-radius: var(--border-radius);
+        font-family: monospace;
+        white-space: pre;
+        min-height: 150px;
+    }
+</style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Analyseur d'URL (JavaScript)</h1>
+            <p><a href="index.html">Retour à l'accueil</a></p>
+        </header>
+
+        <main>
+            <form onsubmit="return false;">
+                <label for="url-input">Entrez une URL à analyser :</label>
+                <input type="text" name="url-input" id="url-input" placeholder="https://exemple.com:8080/chemin?p=1#ancre" autocomplete="off" />
+            </form>
+
+            <h3 style="margin-top: 20px;">Parties extraites :</h3>
+            <div id="url-parts"></div>
+
+            <h3>Le code JavaScript utilisé</h3>
+            <p>Ce script utilise une expression régulière avec des <strong>groupes de capture nommés</strong> (<code>?&lt;nom&gt;...</code>) pour extraire facilement chaque partie d'une URL. La méthode <code>.exec()</code> retourne un objet de correspondance dont la propriété <code>.groups</code> contient les parties extraites.</p>
+            <pre><code class="language-javascript">
+const urlInput = document.getElementById('url-input');
+const partsDiv = document.getElementById('url-parts');
+
+const urlRegex = /^(?<protocol>https?:\/\/)?(?<hostname>[^/:]+)(?::(?<port>\d+))?(?<pathname>\/[^?#]*)?(?<search>\?[^#]*)?(?<hash>#.*)?$/;
+
+urlInput.addEventListener('input', () => {
+    const url = urlInput.value;
+    const match = urlRegex.exec(url);
+
+    if (match && match.groups) {
+        // On filtre les groupes qui sont undefined pour un affichage plus propre
+        const capturedParts = Object.fromEntries(
+            Object.entries(match.groups).filter(([key, value]) => value !== undefined)
+        );
+        partsDiv.textContent = JSON.stringify(capturedParts, null, 2);
+    } else {
+        partsDiv.textContent = 'URL invalide ou non analysable...';
+    }
+
+    if (url.trim() === '') {
+        partsDiv.textContent = '';
+    }
+});
+            </code></pre>
+        </main>
+    </div>
+
+    <!-- Prism.js pour la coloration syntaxique -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+    <script>
+        // Le code de l'analyseur d'URL
+        const urlInput = document.getElementById('url-input');
+        const partsDiv = document.getElementById('url-parts');
+        const urlRegex = /^(?<protocol>https?:\/\/)?(?<hostname>[^/:]+)(?::(?<port>\d+))?(?<pathname>\/[^?#]*)?(?<search>\?[^#]*)?(?<hash>#.*)?$/;
+
+        urlInput.addEventListener('input', () => {
+            const url = urlInput.value;
+            if (url.trim() === '') { partsDiv.textContent = ''; return; }
+            const match = urlRegex.exec(url);
+            if (match && match.groups) {
+                const capturedParts = Object.fromEntries(Object.entries(match.groups).filter(([key, value]) => value !== undefined));
+                partsDiv.textContent = JSON.stringify(capturedParts, null, 2);
+            } else {
+                partsDiv.textContent = 'URL invalide ou non analysable...';
+            }
+        });
+    </script>
+</body>
+</html>

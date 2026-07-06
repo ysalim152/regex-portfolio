@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>REGEX - SQL Recherche de Mots Dupliqués</title>
+<link rel="stylesheet" href="assets/css/style.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Recherche de Mots Dupliqués (SQL)</h1>
+            <p><a href="index.html">Retour à l'accueil</a></p>
+        </header>
+
+        <main>
+            <h3>Objectif</h3>
+            <p>Cet exemple montre comment utiliser une <strong>référence arrière (backreference)</strong> en SQL pour trouver des mots qui se répètent consécutivement. C'est une technique très utile pour le nettoyage de données textuelles.</p>
+            <p>La requête ci-dessous sélectionne les commentaires qui contiennent un mot répété, comme "le le".</p>
+
+            <h3>La requête SQL</h3>
+            <p>Note : En SQL, les barres obliques inverses dans la chaîne de regex doivent souvent être échappées. Ainsi, <code>\b</code> devient <code>\\b</code> et <code>\1</code> devient <code>\\1</code>.</p>
+            <pre><code class="language-sql">
+SELECT * FROM commentaires WHERE contenu REGEXP '\\b(\\w+)\\s+\\1\\b';
+            </code></pre>
+
+            <h3>Détail de l'expression régulière : <code>\b(\w+)\s+\1\b</code></h3>
+            <ul>
+                <li><code>\b</code> : Ancre de "limite de mot" (word boundary). Assure qu'on ne capture pas une partie d'un mot plus long.</li>
+                <li><code>(\w+)</code> : Groupe de capture n°1. Capture un ou plusieurs "caractères de mot" (lettres, chiffres, underscore).</li>
+                <li><code>\s+</code> : Correspond à un ou plusieurs caractères d'espacement (espace, tabulation, etc.).</li>
+                <li><code>\1</code> : Référence arrière (backreference). Correspond exactement au texte qui a été capturé par le premier groupe de capture.</li>
+                <li><code>\b</code> : Une autre limite de mot pour marquer la fin du deuxième mot.</li>
+            </ul>
+
+            <div class="sql-example">
+                <h3>Exemple de table <code>commentaires</code></h3>
+                <p>Si on appliquait cette requête sur la table ci-dessous, seuls les enregistrements avec les ID 2 et 3 seraient retournés.</p>
+                <pre><code class="language-text">
++----+------------------------------------------------+
+| id | contenu                                        |
++----+------------------------------------------------+
+| 1  | C'est un très bon produit.                     |
+| 2  | Le service client est est excellent.           |
+| 3  | J'ai eu un problème avec avec la livraison.    |
+| 4  | La couleur est belle, mais la taille est petite|
++----+------------------------------------------------+</code></pre>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+</body>
+</html>

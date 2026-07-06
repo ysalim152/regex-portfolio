@@ -31,11 +31,13 @@ Le portfolio inclut les démonstrations suivantes :
 *   **PASSWORD_JS.html**: Évalue la force d'un mot de passe en temps réel.
 *   **USERNAME_JS.html**: Valide un pseudonyme en temps réel selon des règles spécifiques.
 *   **HIGHLIGHT_JS.html**: Surligne dynamiquement du texte correspondant à une recherche utilisateur.
+*   **URL_PARSER_JS.html**: Décompose une URL en ses différentes parties (protocole, domaine, etc.).
 
 ### Exemples en SQL (MySQL/MariaDB)
 
 *   **SQL_VOWEL.html**: Sélectionne des enregistrements où un champ commence par une voyelle.
 *   **SQL_PRODUCT_CODE.html**: Valide un format de code produit (`ABC-1234`).
+*   **SQL_DUPLICATE_WORDS.html**: Sélectionne des enregistrements contenant des mots répétés consécutivement.
 
 ## Comment utiliser ce projet ?
 

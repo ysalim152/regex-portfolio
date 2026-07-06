@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>REGEX - SQL Recherche par Voyelle</title>
+<link rel="stylesheet" href="assets/css/style.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Recherche de Noms par Voyelle (SQL)</h1>
+            <p><a href="index.html">Retour à l'accueil</a></p>
+        </header>
+
+        <main>
+            <h3>Objectif</h3>
+            <p>Cet exemple montre comment utiliser l'opérateur <code>REGEXP</code> en SQL (compatible MySQL/MariaDB) pour filtrer des résultats en fonction d'un modèle simple.</p>
+            <p>La requête ci-dessous sélectionne tous les utilisateurs dont le champ <code>nom</code> commence par une voyelle (a, e, i, o, u). Par défaut, <code>REGEXP</code> est insensible à la casse.</p>
+
+            <h3>La requête SQL</h3>
+            <pre><code class="language-sql">
+SELECT * FROM utilisateurs WHERE nom REGEXP '^[aeiou]';
+            </code></pre>
+
+            <h3>Détail de l'expression régulière : <code>^[aeiou]</code></h3>
+            <ul>
+                <li><code>^</code> : Ancre. Indique que le modèle doit correspondre au début de la chaîne de caractères.</li>
+                <li><code>[aeiou]</code> : Classe de caractères. Indique que le caractère suivant doit être l'une des voyelles listées.</li>
+            </ul>
+            <p>Combinés, ces éléments signifient "la chaîne doit commencer par une voyelle".</p>
+
+            <div class="sql-example">
+                <h3>Exemple de table <code>utilisateurs</code></h3>
+                <p>Si on appliquait cette requête sur la table ci-dessous, seuls les enregistrements pour 'Alice' et 'Éric' seraient retournés.</p>
+                <pre><code class="language-text">
++----+--------+
+| id | nom    |
++----+--------+
+| 1  | Bob    |
+| 2  | Alice  |
+| 3  | Charlie|
+| 4  | Éric   |
++----+--------+</code></pre>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+</body>
+</html>

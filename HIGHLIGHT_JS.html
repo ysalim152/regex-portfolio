@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>REGEX - Surlignage de Texte (JS)</title>
+<link rel="stylesheet" href="assets/css/style.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet" />
+<style>
+    #search-text {
+        border: 1px solid #ccc;
+        padding: 15px;
+        border-radius: var(--border-radius);
+        background-color: #f8f9fa;
+        line-height: 1.8;
+    }
+    mark {
+        background-color: var(--secondary-color);
+        color: #000;
+        border-radius: 3px;
+        padding: 2px 4px;
+        animation: fadein 0.3s;
+    }
+    @keyframes fadein {
+        from { opacity: 0; }
+        to   { opacity: 1; }
+    }
+</style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Surlignage de Texte par Recherche (JavaScript)</h1>
+            <p><a href="index.html">Retour à l'accueil</a></p>
+        </header>
+
+        <main>
+            <form onsubmit="return false;">
+                <label for="search-input">Rechercher dans le texte ci-dessous :</label>
+                <input type="text" name="search-input" id="search-input" placeholder="Tapez un mot comme 'regex'..." autocomplete="off" />
+            </form>
+
+            <div id="search-text" style="margin-top: 20px;">
+                <p>Les expressions régulières, souvent abrégées en "regex" ou "regexp", sont une séquence de caractères qui définit un modèle de recherche. Elles sont principalement utilisées pour la recherche et la manipulation de chaînes de caractères.</p>
+                <p>Maîtriser les regex est une compétence précieuse pour tout développeur. Une regex peut valider une adresse e-mail, extraire des données d'un fichier log, ou, comme dans cet exemple, trouver toutes les occurrences d'un mot dans un texte. La puissance des regex réside dans leur flexibilité.</p>
+            </div>
+
+            <h3>Le code JavaScript utilisé</h3>
+            <p>Ce script utilise une expression régulière construite dynamiquement à partir de la saisie de l'utilisateur pour trouver et surligner toutes les correspondances. L'expression est créée avec les indicateurs <code>g</code> (global) et <code>i</code> (insensible à la casse).</p>
+            <pre><code class="language-javascript">
+const searchInput = document.getElementById('search-input');
+const searchText = document.getElementById('search-text');
+const originalText = searchText.innerHTML;
+
+// Fonction pour échapper les caractères spéciaux pour la regex
+function escapeRegex(string) {
+    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+searchInput.addEventListener('input', () => {
+    const searchTerm = searchInput.value;
+
+    if (searchTerm.trim() === '') {
+        searchText.innerHTML = originalText;
+        return;
+    }
+
+    const escapedTerm = escapeRegex(searchTerm);
+    const regex = new RegExp(escapedTerm, 'gi');
+
+    // On utilise .replace() pour envelopper chaque correspondance dans une balise &lt;mark&gt;
+    const newText = originalText.replace(regex, (match) => `&lt;mark&gt;${match}&lt;/mark&gt;`);
+    
+    searchText.innerHTML = newText;
+});
+            </code></pre>
+        </main>
+    </div>
+
+    <!-- Prism.js pour la coloration syntaxique -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+    <script>
+        // Le code de surlignage en temps réel
+        const searchInput = document.getElementById('search-input'); const searchText = document.getElementById('search-text'); const originalText = searchText.innerHTML; function escapeRegex(string) { return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); } searchInput.addEventListener('input', () => { const searchTerm = searchInput.value; if (searchTerm.trim() === '') { searchText.innerHTML = originalText; return; } const escapedTerm = escapeRegex(searchTerm); const regex = new RegExp(escapedTerm, 'gi'); const newText = originalText.replace(regex, (match) => `<mark>${match}</mark>`); searchText.innerHTML = newText; });
+    </script>
+</body>
+</html>

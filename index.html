@@ -41,20 +41,15 @@
                 <li><a href="TEL_JS.html">Masque de saisie pour numéro de téléphone (JS)</a></li>
                 <li><a href="PASSWORD_JS.html">Validation de force de mot de passe (JS)</a></li>
                 <li><a href="USERNAME_JS.html">Validation de pseudonyme en temps réel (JS)</a></li>
+                <li><a href="HIGHLIGHT_JS.html">Surlignage de texte par recherche (JS)</a></li>
             </ul>
 
             <h2>Exemples en SQL (MySQL/MariaDB)</h2>
-            <div class="sql-example">
-                <h3>Rechercher des noms commençant par une voyelle</h3>
-                <p>Cette requête sélectionne les utilisateurs dont le nom commence par une voyelle (insensible à la casse avec `REGEXP` par défaut).</p>
-                <!-- Pour activer la coloration, ajoutez la classe "language-sql" au bloc de code après avoir décommenté les liens Prism.js -->
-                <pre><code class="language-sql">SELECT * FROM utilisateurs WHERE nom REGEXP '^[aeiou]';</code></pre>
-            </div>
-            <div class="sql-example">
-                <h3>Valider un format de code produit</h3>
-                <p>Cette requête trouve les produits avec un code au format 'ABC-1234'.</p>
-                <pre><code class="language-sql">SELECT * FROM produits WHERE code_produit REGEXP '^[A-Z]{3}-[0-9]{4}$';</code></pre>
-            </div>
+            <p>Ces pages illustrent l'utilisation de l'opérateur <code>REGEXP</code> en SQL pour des requêtes de recherche et de validation basées sur des modèles.</p>
+            <ul>
+                <li><a href="SQL_VOWEL.html">Recherche de noms par voyelle</a></li>
+                <li><a href="SQL_PRODUCT_CODE.html">Validation d'un code produit</a></li>
+            </ul>
         </main>
         <footer>
             <p>Merci de votre confiance, <a href="https://github.com/ysalim152" target="_blank" rel="noopener noreferrer">Salim YOUNSI</a></p>

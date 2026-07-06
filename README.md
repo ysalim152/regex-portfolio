@@ -30,13 +30,12 @@ Le portfolio inclut les démonstrations suivantes :
 *   **TEL_JS.html**: Applique un masque de saisie pour un numéro de téléphone français.
 *   **PASSWORD_JS.html**: Évalue la force d'un mot de passe en temps réel.
 *   **USERNAME_JS.html**: Valide un pseudonyme en temps réel selon des règles spécifiques.
+*   **HIGHLIGHT_JS.html**: Surligne dynamiquement du texte correspondant à une recherche utilisateur.
 
-### Exemples en SQL (théoriques)
+### Exemples en SQL (MySQL/MariaDB)
 
-Ces exemples sont présentés sur la page d'accueil pour illustrer la syntaxe `REGEXP` en SQL (compatible MySQL/MariaDB).
-
-*   Recherche de noms commençant par une voyelle.
-*   Validation d'un format de code produit (`ABC-1234`).
+*   **SQL_VOWEL.html**: Sélectionne des enregistrements où un champ commence par une voyelle.
+*   **SQL_PRODUCT_CODE.html**: Valide un format de code produit (`ABC-1234`).
 
 ## Comment utiliser ce projet ?
 
